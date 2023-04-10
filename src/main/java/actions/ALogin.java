@@ -11,11 +11,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author ADMIN
  */
 public class ALogin extends ActionSupport {
-    
+
     private String nombre;
-    
+
     private String password;
-            
+
     public ALogin() {
     }
 
@@ -34,14 +34,20 @@ public class ALogin extends ActionSupport {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     @Override
     public String execute() throws Exception {
-        if(this.getPassword().equals("1234") && this.getNombre().equals("german")) {
-            return SUCCESS;
-        } else {
-            return ERROR;
-        }
+        return (this.getPassword().equals("1234") && this.getNombre().equals("german")) ? SUCCESS : ERROR;
     }
-    
+
+    @Override
+    public void validate() {
+    if (this.getNombre() == null || this.getPassword() == null) {
+        addFieldError("nombre", "El nombre ingresado es erroneo");
+        addFieldError("password", "La password ingresada es erronea");
+    } else if (this.getNombre().length() >= 5) {
+        addFieldError("nombre", "La longitud del nombre es erronea");
+    }
+    }
+
 }
