@@ -5,6 +5,7 @@
 package actions;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ALogin extends ActionSupport {
         return password;
     }
 
+    @RequiredStringValidator(message="Contraseña necesaria")
     public void setPassword(String password) {
         this.password = password;
     }
@@ -43,9 +45,9 @@ public class ALogin extends ActionSupport {
     @Override
     public void validate() {
     if (this.getNombre() == null || this.getPassword() == null) {
-        addFieldError("nombre", "El nombre ingresado es erroneo");
-        addFieldError("password", "La password ingresada es erronea");
-    } else if (this.getNombre().length() >= 5) {
+        addFieldError("nombre", getText("nombre.error"));
+        addFieldError("password", getText("password.error"));
+    } else if (this.getNombre().length() < 5) {
         addFieldError("nombre", "La longitud del nombre es erronea");
     }
     }

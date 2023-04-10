@@ -15,6 +15,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bienvenido <s:property value="nombre" /> </h1>
+        <h1><s:text name="saludo" /> <s:property value="nombre" /></h1>
     </body>
 </html>
